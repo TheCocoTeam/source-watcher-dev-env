@@ -1,0 +1,20 @@
+# Sub-repos (tracked as submodules or cloned separately)
+/source-watcher-core/
+/source-watcher-api/
+/source-watcher-board/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE / editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

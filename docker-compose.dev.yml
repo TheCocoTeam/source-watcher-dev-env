@@ -1,0 +1,20 @@
+# Development-only: run Composer and PHPUnit without local PHP.
+# The php service uses Dockerfile.dev (Composer + ext-pgsql) so composer update respects platform reqs.
+#
+# Compose (recommended; image has pgsql):
+#   docker compose -f docker-compose.dev.yml run --rm php sh -c "cd source-watcher-core && composer update"
+#   docker compose -f docker-compose.dev.yml run --rm php sh -c "cd source-watcher-core && composer install && ./vendor/bin/phpunit"
+#
+# If you prefer "docker run" without compose, build the dev image first:
+#   docker build -f Dockerfile.dev -t source-watcher-dev:latest .
+#   docker run --rm -v "$(pwd)":/app -w /app/source-watcher-core source-watcher-dev:latest sh -c "composer update"
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: source-watcher-dev:latest
+    working_dir: /app
+    volumes:
+      - .:/app

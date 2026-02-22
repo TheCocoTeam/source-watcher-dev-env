@@ -1,0 +1,9 @@
+# Dev image: Composer + PHP extensions (ext-pgsql, PCOV for code coverage).
+# Rebuild after changes: docker compose -f docker-compose.dev.yml build
+FROM composer:2
+
+RUN apk add --no-cache postgresql-dev autoconf dpkg-dev file g++ gcc libc-dev make pkgconf re2c \
+    && docker-php-ext-install pdo_pgsql pgsql \
+    && pecl install pcov \
+    && docker-php-ext-enable pcov \
+    && apk del --no-cache autoconf dpkg-dev file g++ gcc libc-dev make pkgconf re2c
